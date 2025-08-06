@@ -17,6 +17,7 @@ import RegisterFlow from "./pages/RegisterFlow";
 import Login from "./pages/Login";
 import CourseDetailPage from "./pages/CourseDetailPage";
 import PricingPage from "./pages/PricingPage";
+import MyActivitiesPage from "./pages/MyActivitiesPage"; // Update path as needed
 
 // Create a layout wrapper to handle Navbar visibility
 const Layout = ({ children }) => {
@@ -55,6 +56,8 @@ function App() {
             <Route path="/courses/:courseId" element={<CourseDetailPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/my-activities" element={<MyActivitiesPage />} />
+
           </Routes>
         </Layout>
       </Router>
