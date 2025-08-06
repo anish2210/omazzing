@@ -79,7 +79,7 @@ function Login() {
             <button
               type="submit"
               disabled={!formData.email || !formData.password}
-              className="w-full bg-deepPink text-white py-3 px-6 rounded-full disabled:opacity-50 hover:bg-opacity-90 transition-colors"
+              className="w-full bg-fuchsia-600 text-white py-3 px-6 rounded-full disabled:opacity-50 hover:bg-opacity-90 transition-colors"
             >
               Sign In
             </button>
