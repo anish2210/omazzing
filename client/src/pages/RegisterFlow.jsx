@@ -1,6 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Array of images for each registration step (replace with your own images if you want)
+const stepImages = [
+  "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=80", // Step 0: Gender
+  "https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?auto=format&fit=crop&w=700&q=80", // Step 1: Age
+  "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=700&q=80", // Step 2: Goal
+  "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=700&q=80", // Step 3: Profile
+  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=700&q=80", // Step 4: Create Account
+];
+
 function RegisterFlow() {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
@@ -41,7 +50,7 @@ function RegisterFlow() {
   const handleSignup = () => {
     // Handle signup logic here
     console.log("Signup data:", formData);
-    // After successful signup, redirect to packages or dashboard
+    // After successful signup, redirect to homepage (or dashboard/packages)
     navigate("/homepage");
   };
 
@@ -51,7 +60,7 @@ function RegisterFlow() {
         return (
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-center">
-              What is your gender? 🧍‍♂️🧍‍♀️
+              What is your gender?
             </h2>
             <div className="space-y-3">
               {["male", "female", "rather not to say"].map((opt) => (
@@ -73,14 +82,14 @@ function RegisterFlow() {
             <div className="flex justify-between items-center pt-4">
               <button
                 onClick={() => navigate("/")}
-                className="text-sm text-gray-500 underline"
+                className="text-sm border border-gray-400 px-6 py-2 rounded-full text-gray-500 cursor-pointer"
               >
                 Back
               </button>
               <button
                 onClick={nextStep}
                 disabled={!formData.gender}
-                className="bg-pinkAccent text-white py-2 px-6 rounded-full disabled:opacity-50"
+                className="bg-pinkAccent text-white bg-fuchsia-600 py-2 px-6 rounded-full disabled:opacity-50 cursor-pointer"
               >
                 Continue
               </button>
@@ -102,7 +111,7 @@ function RegisterFlow() {
         return (
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-center">
-              Choose Your Age 🎯
+              Choose Your Age
             </h2>
             <div className="grid grid-cols-2 gap-3">
               {ageRanges.map((range) => (
@@ -112,7 +121,7 @@ function RegisterFlow() {
                     formData.ageRange === range
                       ? "bg-black text-white border-black"
                       : "bg-white text-black border-gray-300 hover:border-gray-400"
-                  }`}
+                  } cursor-pointer`}
                   onClick={() => updateField("ageRange", range)}
                 >
                   {range}
@@ -122,14 +131,14 @@ function RegisterFlow() {
             <div className="flex justify-between items-center pt-4">
               <button
                 onClick={prevStep}
-                className="text-sm text-gray-500 underline"
+                className="text-sm text-gray-500 border border-gray-400 px-6 py-2 rounded-full cursor-pointer"
               >
                 Back
               </button>
               <button
                 onClick={nextStep}
                 disabled={!formData.ageRange}
-                className="bg-pinkAccent text-white py-2 px-6 rounded-full disabled:opacity-50"
+                className="bg-pinkAccent text-white bg-fuchsia-600 py-2 px-6 rounded-full disabled:opacity-50 cursor-pointer"
               >
                 Continue
               </button>
@@ -150,7 +159,7 @@ function RegisterFlow() {
         return (
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-center">
-              What is your goal by doing meditation? 🎯
+              What is your goal by doing meditation?
             </h2>
             <div className="space-y-3">
               {goals.map((goal) => (
@@ -168,17 +177,17 @@ function RegisterFlow() {
                 </label>
               ))}
             </div>
-            <div className="flex justify-between items-center pt-4">
+            <div className="flex justify-between items-center">
               <button
                 onClick={prevStep}
-                className="text-sm text-gray-500 underline"
+                className="text-sm text-gray-500 border border-gray-400 rounded-full px-6 py-2 cursor-pointer"
               >
                 Back
               </button>
               <button
                 onClick={nextStep}
                 disabled={formData.goals.length === 0}
-                className="bg-pinkAccent text-white py-2 px-6 rounded-full disabled:opacity-50"
+                className="bg-pinkAccent text-white py-2 px-6 bg-fuchsia-600 rounded-full disabled:opacity-50 cursor-pointer"
               >
                 Continue
               </button>
@@ -191,7 +200,7 @@ function RegisterFlow() {
         return (
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-center">
-              Complete Your Profile 📝
+              Complete Your Profile
             </h2>
             <div className="space-y-4">
               <input
@@ -226,7 +235,7 @@ function RegisterFlow() {
             <div className="flex justify-between items-center pt-4">
               <button
                 onClick={prevStep}
-                className="text-sm text-gray-500 underline"
+                className="text-sm text-gray-500 border py-2 px-6 border-gray-400 rounded-full cursor-pointer"
               >
                 Back
               </button>
@@ -238,7 +247,7 @@ function RegisterFlow() {
                   !formData.dob ||
                   !formData.country
                 }
-                className="bg-pinkAccent text-white py-2 px-6 rounded-full disabled:opacity-50"
+                className="bg-pinkAccent text-white py-2 px-6 bg-fuchsia-600 rounded-full disabled:opacity-50 cursor-pointer"
               >
                 Continue
               </button>
@@ -250,7 +259,7 @@ function RegisterFlow() {
         return (
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-center">
-              Create Your Account 🔒
+              Create Your Account
             </h2>
             <div className="space-y-4">
               <input
@@ -287,7 +296,7 @@ function RegisterFlow() {
             <div className="flex justify-between items-center pt-4">
               <button
                 onClick={prevStep}
-                className="text-sm text-gray-500 underline"
+                className="text-sm text-gray-500 border border-gray-400 py-2 px-6 rounded-full underline cursor-pointer"
               >
                 Back
               </button>
@@ -299,7 +308,7 @@ function RegisterFlow() {
                   !formData.confirmPassword ||
                   formData.password !== formData.confirmPassword
                 }
-                className="bg-pinkAccent text-white py-2 px-6 rounded-full disabled:opacity-50"
+                className="bg-pinkAccent text-white py-2 px-6 bg-fuchsia-400 rounded-full disabled:opacity-50 cursor-pointer"
               >
                 Sign Up
               </button>
@@ -314,17 +323,28 @@ function RegisterFlow() {
 
   return (
     <div className="min-h-screen w-full flex bg-gray-50">
-      {/* Image side: visible only on large screens and above */}
-      <div className="hidden lg:block w-1/2 h-screen">
+      {/* Left side image for desktop */}
+      <div className="hidden lg:block w-1/2 h-screen transition-all duration-200">
         <img
-          src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80"
-          alt="Meditation"
+          src={stepImages[step]}
+          alt={`Step ${step} visual`}
           className="w-full h-full object-cover"
+          key={step} // Helps React re-render image when step changes
         />
       </div>
 
       {/* Form side */}
-      <div className="flex flex-col items-center justify-center w-full lg:w-1/2 p-8 lg:p-16 bg-white shadow-lg">
+      <div className="flex flex-col items-center justify-center w-full lg:w-1/2 p-8 lg:p-16 bg-white shadow-lg min-h-screen overflow-y-auto">
+        {/* Top image for mobile */}
+        <div className="w-full max-w-md lg:hidden flex justify-center mb-6">
+          <img
+            src={stepImages[step]}
+            alt={`Step ${step} visual`}
+            className="w-full h-44 object-cover rounded-xl"
+            key={step}
+          />
+        </div>
+
         <div className="w-full max-w-md">{renderStep()}</div>
       </div>
     </div>
