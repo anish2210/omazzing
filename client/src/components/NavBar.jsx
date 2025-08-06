@@ -5,10 +5,26 @@ export default function Navbar() {
   const location = useLocation();
 
   const navItems = [
-    { to: "/homepage", label: "Home", icon: <FaHome className="text-xl mb-0.5" /> },
-    { to: "/courses", label: "Courses", icon: <FaBookOpen className="text-xl mb-0.5" /> },
-    { to: "/pricing", label: "Pricing", icon: <FaTag className="text-xl mb-0.5" /> },
-    { to: "/profile", label: "Profile", icon: <FaUser className="text-xl mb-0.5" /> },
+    {
+      to: "/homepage",
+      label: "Home",
+      icon: <FaHome className="text-xl mb-0.5" />,
+    },
+    {
+      to: "/courses",
+      label: "Courses",
+      icon: <FaBookOpen className="text-xl mb-0.5" />,
+    },
+    {
+      to: "/pricing",
+      label: "Pricing",
+      icon: <FaTag className="text-xl mb-0.5" />,
+    },
+    {
+      to: "/profile",
+      label: "Profile",
+      icon: <FaUser className="text-xl mb-0.5" />,
+    },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -17,7 +33,13 @@ export default function Navbar() {
     <>
       {/* Desktop top navbar */}
       <nav className="hidden md:flex items-center justify-between px-10 h-[64px] bg-white shadow-md fixed top-0 left-0 right-0 z-50">
-        <div className="text-2xl font-semibold text-indigo-600">Omaazing</div>
+        {/* Wrap the heading in Link */}
+        <Link
+          to="/"
+          className="text-2xl font-semibold text-indigo-600 hover:underline"
+        >
+          Omaazing
+        </Link>
         <div className="flex space-x-10">
           {navItems.map((item) => (
             <Link
@@ -38,7 +60,13 @@ export default function Navbar() {
 
       {/* Mobile top header with logo */}
       <div className="flex md:hidden justify-center items-center h-12 bg-white shadow-sm fixed top-0 left-0 right-0 z-40">
-        <span className="text-lg font-semibold text-indigo-600">Omaazing</span>
+        {/* Wrap the heading in Link */}
+        <Link
+          to="/"
+          className="text-lg font-semibold text-indigo-600 hover:underline"
+        >
+          Omaazing
+        </Link>
       </div>
 
       {/* Mobile bottom navbar */}
