@@ -42,7 +42,7 @@ function RegisterFlow() {
     // Handle signup logic here
     console.log("Signup data:", formData);
     // After successful signup, redirect to packages or dashboard
-    navigate("/packages");
+    navigate("/homepage");
   };
 
   const renderStep = () => {

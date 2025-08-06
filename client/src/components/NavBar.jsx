@@ -1,12 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
-import { FaHome, FaBookOpen, FaUser } from "react-icons/fa";
+import { FaHome, FaBookOpen, FaUser, FaTag } from "react-icons/fa";
 
 export default function Navbar() {
   const location = useLocation();
 
   const navItems = [
-    { to: "/", label: "Home", icon: <FaHome className="text-xl mb-0.5" /> },
+    { to: "/homepage", label: "Home", icon: <FaHome className="text-xl mb-0.5" /> },
     { to: "/courses", label: "Courses", icon: <FaBookOpen className="text-xl mb-0.5" /> },
+    { to: "/pricing", label: "Pricing", icon: <FaTag className="text-xl mb-0.5" /> },
     { to: "/profile", label: "Profile", icon: <FaUser className="text-xl mb-0.5" /> },
   ];
 

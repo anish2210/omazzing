@@ -4,9 +4,9 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { UserProvider } from "./context/UserContext"; // ✅ Import UserProvider
+import { UserProvider } from "./context/UserContext";
 
-import Navbar from "./components/NavBar"; // Change this if your file is Navbar.jsx
+import Navbar from "./components/NavBar";
 
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
@@ -15,28 +15,47 @@ import PersonalInfoPage from "./pages/PersonalInfoPage";
 import CoursesPage from "./pages/CoursesPage";
 import RegisterFlow from "./pages/RegisterFlow";
 import Login from "./pages/Login";
-import Packages from "./pages/Packages";
-import UserProfile from "./pages/UserProfile";
+import CourseDetailPage from "./pages/CourseDetailPage";
+import PricingPage from "./pages/PricingPage";
+
+// Create a layout wrapper to handle Navbar visibility
+const Layout = ({ children }) => {
+  const location = useLocation();
+  // Paths where Navbar should NOT be shown
+  const hideNavbarPaths = ["/", "/signup", "/login"];
+
+  const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname);
+
+  return (
+    <div className="flex flex-col min-h-screen bg-babyPink text-black">
+      {shouldShowNavbar && <Navbar />}
+      <main className="flex-1 p-4 pt-20">{children}</main>
+    </div>
+  );
+};
 
 function App() {
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen bg-babyPink text-black">
-        <Navbar />
-        <main className="flex-1 p-4 pt-20">
+    <UserProvider>
+      <Router>
+        <Layout>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/home" element={<HomePage />} />
+            <Route path="/homepage" element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/register" element={<RegisterFlow />} />
+            <Route
+              path="/profile/personal-info"
+              element={<PersonalInfoPage />}
+            />
             <Route path="/courses" element={<CoursesPage />} />
-            <Route path="/signup" element={<RegisterFlow />} />
+            <Route path="/courses/:courseId" element={<CourseDetailPage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/packages" element={<Packages />} />
-            <Route path="/user" element={<UserProfile />} />
+            <Route path="/pricing" element={<PricingPage />} />
           </Routes>
-        </main>
-      </div>
-    </Router>
+        </Layout>
+      </Router>
+    </UserProvider>
   );
 }
 
