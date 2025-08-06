@@ -29,7 +29,7 @@ const Home = () => {
       />
       <ScrollRow className="m-4 lg:p-6 overflow-x-auto">
         <CategoryCard title="Focus" count="32" img={placeholder1} />
-        <CategoryCard title="Body Scan" count="18" img={placeholder2} />
+        <CategoryCard title="Body Scan" count="18" img={placeholder1} />
         <CategoryCard title="Sleep" count="25" img={placeholder1} />
         <CategoryCard title="Relax" count="20" img={placeholder2} />
         <CategoryCard title="Calm" count="12" img={placeholder1} />
