@@ -66,37 +66,44 @@ const PricingPage = () => {
         {plans.map((plan) => (
           <div
             key={plan.id}
-            className={`relative flex flex-col justify-between rounded-2xl border p-6 pt-10 shadow-sm w-full max-w-sm md:w-80 transition-all duration-300 hover:shadow-lg ${
-              plan.popular ? "border-pinkAccent shadow-md" : "border-gray-200"
-            } overflow-visible min-h-[600px]`}
-            style={{
-              background: "linear-gradient(to bottom right, #ffe6f0, #ffb6c1)",
-            }}
+            className={`relative flex flex-col justify-between rounded-2xl border p-6 pt-10 shadow-sm w-full max-w-sm md:w-80 transition-all duration-300 hover:shadow-lg overflow-visible min-h-[600px] ${
+              plan.popular
+                ? "border-[3px] border-[#9743c8] bg-gradient-to-br from-[#f19ad2] via-[#ab4ee1] to-[#9743c8] text-white shadow-lg scale-105"
+                : "border-gray-300 bg-white"
+            }`}
           >
             {plan.popular && (
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 bg-pinkAccent text-black text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-full shadow-sm">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 bg-[#9743c8] text-white text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-full shadow-md">
                 Most Popular
               </div>
             )}
 
             <div>
-              <h2 className="text-xl font-bold mb-1">{plan.title}</h2>
-              <p className="text-sm text-gray-700 mb-4">{plan.subtitle}</p>
+              <h2 className={`text-xl font-bold mb-1 ${plan.popular ? "text-white" : "text-black"}`}>
+                {plan.title}
+              </h2>
+              <p className={`text-sm mb-4 ${plan.popular ? "text-pink-100" : "text-gray-700"}`}>
+                {plan.subtitle}
+              </p>
 
               <div className="text-4xl font-bold mb-2">
                 ${plan.price}
-                <span className="text-base font-normal text-gray-800">
+                <span className="text-base font-normal ml-1">
                   /{plan.interval}
                 </span>
               </div>
 
-              <p className="text-gray-800 italic mb-6">{plan.description}</p>
+              <p className={`italic mb-6 ${plan.popular ? "text-white" : "text-gray-800"}`}>
+                {plan.description}
+              </p>
 
-              <ul className="mb-6 space-y-2 text-gray-900 text-sm">
+              <ul className={`mb-6 space-y-2 text-sm ${plan.popular ? "text-white" : "text-gray-900"}`}>
                 {plan.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <svg
-                      className="w-5 h-5 text-pinkAccent mt-1 flex-shrink-0"
+                      className={`w-5 h-5 mt-1 flex-shrink-0 ${
+                        plan.popular ? "text-white" : "text-pinkAccent"
+                      }`}
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
@@ -116,7 +123,11 @@ const PricingPage = () => {
 
             <button
               aria-label={`Select ${plan.title} plan`}
-              className="w-full rounded-md py-2 font-semibold bg-pinkAccent text-black border border-black-600 hover:bg-pink-400 transition-colors duration-300"
+              className={`w-full rounded-md py-2 font-semibold border transition-colors duration-300 ${
+                plan.popular
+                  ? "bg-white text-[#9743c8] border-white hover:bg-pink-100"
+                  : "bg-pinkAccent text-black border-black hover:bg-pink-300"
+              }`}
             >
               {plan.buttonText}
             </button>

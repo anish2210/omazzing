@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { PlayCircle, PauseCircle, CheckCircle, Lock, X } from "lucide-react";
+import {
+  PlayCircle,
+  PauseCircle,
+  CheckCircle,
+  Lock,
+  X,
+} from "lucide-react";
+import CourseProgressBar from "../components/CourseProgressBar";
 
 // 🔹 Mock course data
 const mockCourses = {
@@ -8,7 +15,6 @@ const mockCourses = {
     title: "Mindful Meditation",
     duration: "8 hours",
     chapters: 12,
-    progress: 32,
     lessons: [
       {
         title: "Introduction",
@@ -41,7 +47,7 @@ const mockCourses = {
   },
 };
 
-// 🔹 Custom animated audio bars
+// 🔹 Audio animation bars
 const AudioPlayingAnimation = () => {
   return (
     <div className="flex items-end space-x-1 h-8 min-w-[60px]">
@@ -60,10 +66,10 @@ const AudioPlayingAnimation = () => {
   );
 };
 
-// 🔹 Main component
 const CourseDetailPage = () => {
   const { courseId } = useParams();
   const [courseData, setCourseData] = useState(null);
+  const [progress, setProgress] = useState(0);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
@@ -74,10 +80,16 @@ const CourseDetailPage = () => {
     }
 
     const data = mockCourses[courseId];
-    setCourseData(data || null);
-    setCurrentlyPlaying(null);
-    setIsPlaying(false);
-    audioRef.current.pause();
+    if (data) {
+      setCourseData(data);
+
+      const completed = data.lessons.filter((l) => l.status === "completed").length;
+      const total = data.lessons.length;
+      const calcProgress = Math.floor((completed / total) * 100);
+
+      setProgress(0);
+      setTimeout(() => setProgress(calcProgress), 200); // animate
+    }
 
     return () => {
       audioRef.current.pause();
@@ -86,11 +98,11 @@ const CourseDetailPage = () => {
     };
   }, [courseId]);
 
-  const toggleAudio = async (lessonIndex, audioUrl) => {
+  const toggleAudio = async (index, audioUrl) => {
     const audio = audioRef.current;
 
     try {
-      if (currentlyPlaying === lessonIndex) {
+      if (currentlyPlaying === index) {
         audio.pause();
         setIsPlaying(false);
         setCurrentlyPlaying(null);
@@ -98,7 +110,7 @@ const CourseDetailPage = () => {
         audio.pause();
         audio.src = audioUrl;
         await audio.play();
-        setCurrentlyPlaying(lessonIndex);
+        setCurrentlyPlaying(index);
         setIsPlaying(true);
       }
 
@@ -118,13 +130,13 @@ const CourseDetailPage = () => {
   };
 
   const handlePlayPause = () => {
-    const audio = audioRef.current;
+    if (!audioRef.current) return;
 
     if (isPlaying) {
-      audio.pause();
+      audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audio.play();
+      audioRef.current.play();
       setIsPlaying(true);
     }
   };
@@ -136,7 +148,11 @@ const CourseDetailPage = () => {
   };
 
   if (!courseData) {
-    return <p className="text-center mt-10">Course not found</p>;
+    return (
+      <div className="text-center mt-10 text-lg font-medium text-gray-600">
+        Loading course...
+      </div>
+    );
   }
 
   const currentLesson = currentlyPlaying !== null ? courseData.lessons[currentlyPlaying] : null;
@@ -149,16 +165,9 @@ const CourseDetailPage = () => {
         <div className="mt-2 flex flex-wrap gap-4 text-sm font-medium">
           <span>🕒 {courseData.duration}</span>
           <span>📘 {courseData.chapters} Chapters</span>
-          <span>{courseData.progress}% Completed</span>
+          <span>{progress}% Completed</span>
         </div>
-
-        {/* Progress bar */}
-        <div className="h-2 w-full bg-white bg-opacity-40 rounded-full mt-4">
-          <div
-            className="h-2 bg-white rounded-full"
-            style={{ width: `${courseData.progress}%` }}
-          />
-        </div>
+        <CourseProgressBar progress={progress} />
       </div>
 
       {/* Lessons */}
@@ -169,16 +178,15 @@ const CourseDetailPage = () => {
           return (
             <div
               key={index}
-              className={`flex items-center gap-4 p-4 rounded-xl bg-[#ffe6f0] shadow-sm ${
+              className={`flex items-center gap-4 p-4 rounded-xl bg-babyPink shadow-sm ${
                 lesson.status === "locked" ? "opacity-50 pointer-events-none" : ""
               }`}
             >
               <img
                 src={lesson.image}
-                alt={lesson.title || "Lesson image"}
+                alt={lesson.title}
                 className="w-16 h-16 object-cover rounded-xl"
               />
-
               <div className="flex-1">
                 <h3 className="font-semibold text-[#9743c8]">{lesson.title}</h3>
                 <p className="text-sm text-gray-600">🕒 {lesson.duration}</p>
@@ -191,7 +199,6 @@ const CourseDetailPage = () => {
               ) : (
                 <button
                   onClick={() => toggleAudio(index, lesson.audioUrl)}
-                  aria-label={isThisPlaying ? `Pause ${lesson.title}` : `Play ${lesson.title}`}
                   className="cursor-pointer"
                 >
                   {isThisPlaying ? (
@@ -208,10 +215,7 @@ const CourseDetailPage = () => {
 
       {/* Mini Player */}
       {currentLesson && (
-        <div
-          aria-live="polite"
-          className="fixed bottom-6 right-6 max-w-xs w-full bg-white rounded-xl shadow-lg flex items-center gap-4 p-4 border border-pinkAccent z-50"
-        >
+        <div className="fixed bottom-6 right-6 max-w-xs w-full bg-white rounded-xl shadow-lg flex items-center gap-4 p-4 border border-pinkAccent z-50">
           <img
             src={currentLesson.image}
             alt={currentLesson.title}
@@ -221,18 +225,10 @@ const CourseDetailPage = () => {
             <h4 className="font-semibold text-pinkAccent">{currentLesson.title}</h4>
             <AudioPlayingAnimation />
           </div>
-          <button
-            onClick={handlePlayPause}
-            aria-label={isPlaying ? "Pause audio" : "Play audio"}
-            className="text-pinkAccent hover:text-pink-600 transition"
-          >
+          <button onClick={handlePlayPause} className="text-pinkAccent">
             {isPlaying ? <PauseCircle size={28} /> : <PlayCircle size={28} />}
           </button>
-          <button
-            onClick={closePlayer}
-            aria-label="Close audio player"
-            className="text-gray-500 hover:text-gray-700 transition ml-2"
-          >
+          <button onClick={closePlayer} className="text-gray-500 ml-2">
             <X size={20} />
           </button>
         </div>

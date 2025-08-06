@@ -26,7 +26,7 @@ const menuItems = [
 ];
 
 const recordItems = [
-  { icon: <FaHistory />, label: "Activity History" },
+  { icon: <FaHistory />, label: "My Records", path: "/my-activities" },
   { icon: <FaHeart />, label: "Favorites" },
 ];
 
@@ -36,7 +36,6 @@ const ProfilePage = () => {
   return (
     <div className="min-h-screen bg-white text-black px-4 sm:px-6 lg:px-20 py-10">
       <div className="max-w-5xl mx-auto">
-
         {/* Header */}
         <h2 className="text-3xl font-bold mb-8 text-gray-800">Account Settings</h2>
 
@@ -93,24 +92,30 @@ const ProfilePage = () => {
         {/* My Records Section */}
         <h3 className="text-xl font-semibold mb-4 text-gray-800">My Records</h3>
         <div className="space-y-4">
-          {recordItems.map(({ icon, label }, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between bg-[#ab4ee1]/10 hover:bg-[#ab4ee1]/20 rounded-2xl px-4 py-4 shadow transition-all"
-            >
-              <div className="flex items-center gap-4">
-                <div className="bg-white p-3 rounded-full text-[#ab4ee1] shadow-md">
-                  {icon}
+          {recordItems.map(({ icon, label, path }, i) => {
+            const content = (
+              <div className="flex items-center justify-between bg-[#ab4ee1]/10 hover:bg-[#ab4ee1]/20 rounded-2xl px-4 py-4 shadow transition-all">
+                <div className="flex items-center gap-4">
+                  <div className="bg-white p-3 rounded-full text-[#ab4ee1] shadow-md">
+                    {icon}
+                  </div>
+                  <span className="text-sm md:text-base font-medium text-gray-800">
+                    {label}
+                  </span>
                 </div>
-                <span className="text-sm md:text-base font-medium text-gray-800">
-                  {label}
-                </span>
+                <FaChevronRight className="text-gray-500" />
               </div>
-              <FaChevronRight className="text-gray-500" />
-            </div>
-          ))}
-        </div>
+            );
 
+            return path ? (
+              <Link to={path} key={i}>
+                {content}
+              </Link>
+            ) : (
+              <div key={i}>{content}</div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
