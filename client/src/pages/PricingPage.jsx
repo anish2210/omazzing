@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const plans = [
   {
@@ -52,7 +52,55 @@ const plans = [
   },
 ];
 
+const paymentOptions = [
+  {
+    method: "card",
+    label: "Credit / Debit Card",
+    icon: (
+      <svg
+        className="w-6 h-6 text-[#9743c8]"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+      >
+        <rect x="2" y="5" width="20" height="14" rx="2" ry="2" />
+        <path d="M2 10h20" />
+      </svg>
+    ),
+  },
+  {
+    method: "paypal",
+    label: "PayPal",
+    icon: (
+      <img
+        src="https://www.paypalobjects.com/webstatic/icon/pp258.png"
+        alt="PayPal"
+        className="w-6 h-6 object-contain"
+      />
+    ),
+  },
+  {
+    method: "upi",
+    label: "UPI",
+    icon: (
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/825/825454.png"
+        alt="UPI"
+        className="w-6 h-6 object-contain"
+      />
+    ),
+  },
+];
+
 const PricingPage = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState("card");
+
+  const handlePaymentClick = (planId) => {
+    setShowModal(true); // Always open modal for all plans
+  };
+
   return (
     <section className="min-h-screen bg-babyPink py-12 px-4 sm:px-6 lg:px-20 text-black">
       <header className="text-center mb-12">
@@ -88,9 +136,7 @@ const PricingPage = () => {
 
               <div className="text-4xl font-bold mb-2">
                 ${plan.price}
-                <span className="text-base font-normal ml-1">
-                  /{plan.interval}
-                </span>
+                <span className="text-base font-normal ml-1">/{plan.interval}</span>
               </div>
 
               <p className={`italic mb-6 ${plan.popular ? "text-white" : "text-gray-800"}`}>
@@ -109,11 +155,7 @@ const PricingPage = () => {
                       strokeWidth="2"
                       viewBox="0 0 24 24"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                     <span>{feature}</span>
                   </li>
@@ -122,6 +164,7 @@ const PricingPage = () => {
             </div>
 
             <button
+              onClick={() => handlePaymentClick(plan.id)}
               aria-label={`Select ${plan.title} plan`}
               className={`w-full rounded-md py-2 font-semibold border transition-colors duration-300 ${
                 plan.popular
@@ -134,6 +177,60 @@ const PricingPage = () => {
           </div>
         ))}
       </div>
+
+      {/* Payment Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-xl relative">
+            <h2 className="text-xl font-bold mb-5 text-[#9743c8] text-center">Choose Payment Method</h2>
+
+            <div className="space-y-3">
+              {paymentOptions.map(({ method, label, icon }) => (
+                <label
+                  key={method}
+                  className={`flex items-center justify-between border rounded-lg p-3 cursor-pointer transition-all ${
+                    selectedMethod === method
+                      ? "border-[#9743c8] bg-gradient-to-r from-[#f19ad2] via-[#ab4ee1] to-[#9743c8] text-white"
+                      : "border-gray-300 bg-white hover:border-[#9743c8]"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value={method}
+                      checked={selectedMethod === method}
+                      onChange={() => setSelectedMethod(method)}
+                      className="accent-[#9743c8]"
+                    />
+                    {icon}
+                    <span className="ml-2">{label}</span>
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            <button
+              onClick={() => {
+                setShowModal(false);
+                alert(`Dummy Payment with ${selectedMethod} submitted!`);
+              }}
+              className="mt-6 w-full py-2 rounded-md font-semibold text-white bg-gradient-to-r from-[#f19ad2] via-[#ab4ee1] to-[#9743c8] hover:opacity-90 transition"
+            >
+              Pay Now
+            </button>
+
+            <div className="flex justify-center mt-3">
+              <button
+                onClick={() => setShowModal(false)}
+                className="text-sm text-gray-500 hover:underline"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
