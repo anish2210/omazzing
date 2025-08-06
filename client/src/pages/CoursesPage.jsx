@@ -10,7 +10,7 @@ const courses = [
     duration: "8 hours",
     chapters: 12,
     progress: 0,
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1220&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg",
+    image: "https://images.unsplash.com/vector-1746109382708-21197227ba3e?q=80&w=1286&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     locked: false,
   },
   {
@@ -20,7 +20,7 @@ const courses = [
     duration: "8 hours",
     chapters: 12,
     progress: 32,
-    image: "https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg",
+    image: "https://images.unsplash.com/vector-1748198892088-9f34b0d5475a?q=80&w=1315&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     locked: false,
   },
   {
@@ -30,7 +30,7 @@ const courses = [
     duration: "8 hours",
     chapters: 12,
     progress: 0,
-    image: "https://images.pexels.com/photos/1234035/pexels-photo-1234035.jpeg",
+    image: "https://images.unsplash.com/vector-1751981367114-6df571b5aa68?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     locked: true,
   },
 ];
@@ -48,11 +48,14 @@ const CoursesPage = () => {
             key={index}
             className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col transition-transform transform hover:scale-[1.015] duration-300"
           >
-            <img
-              src={course.image}
-              alt={course.title}
-              className="w-full h-64 object-cover"
-            />
+            <div className="w-full aspect-[16/9] overflow-hidden">
+              <img
+                src={course.image}
+                alt={course.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
             <div className="p-5 flex-1 flex flex-col">
               <h2 className="text-xl font-semibold mb-2 flex items-center gap-2 text-[#9743c8]">
                 {course.locked && <Lock className="w-4 h-4" />}
