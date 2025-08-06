@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useUser } from "../context/UserContext"; // ✅ use context
+import { useUser } from "../context/UserContext";
 
 const PersonalInfoPage = () => {
-  const { user, updateUser } = useUser(); // ✅ get user and updater
-
-  const [formData, setFormData] = useState(user); // ✅ use context user
+  const { user, updateUser } = useUser();
+  const [formData, setFormData] = useState(user);
 
   useEffect(() => {
-    setFormData(user); // keep in sync
+    setFormData(user);
   }, [user]);
 
   const handleChange = (e) => {
@@ -22,9 +21,9 @@ const PersonalInfoPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateUser(formData); // ✅ update context
+    updateUser(formData);
     alert("Profile updated!");
-    window.history.back(); // go to ProfilePage
+    window.history.back();
   };
 
   const handleCancel = () => {
@@ -32,21 +31,23 @@ const PersonalInfoPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-4 md:p-10 text-black flex justify-center">
+    <div className="min-h-screen bg-white flex justify-center items-start p-4 sm:p-10">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-3xl bg-babyPink p-6 rounded-xl shadow-md"
+        className="w-full max-w-3xl bg-gradient-to-br from-[#f19ad2] to-[#ab4ee1] p-8 sm:p-10 rounded-2xl shadow-2xl"
       >
-        <h2 className="text-2xl font-bold text-pinkAccent mb-6">Edit Personal Info</h2>
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">
+          Edit Personal Info
+        </h2>
 
-        {/* Photo Upload */}
-        <div className="flex items-center gap-6 mb-6">
+        {/* Profile Image Section */}
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-8">
           <img
             src={formData.photo}
             alt="Profile"
-            className="w-20 h-20 rounded-full object-cover"
+            className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md"
           />
-          <label className="cursor-pointer text-sm text-pinkAccent font-medium hover:underline">
+          <label className="cursor-pointer text-sm font-semibold text-white hover:underline">
             Change Photo
             <input
               type="file"
@@ -58,136 +59,95 @@ const PersonalInfoPage = () => {
           </label>
         </div>
 
-        {/* Input Fields */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Input Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Full Name */}
-          <div>
-            <label className="block text-sm font-semibold mb-1">Full Name</label>
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pinkAccent"
-            />
-          </div>
-
+          <InputField
+            label="Full Name"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+          />
           {/* Email */}
-          <div>
-            <label className="block text-sm font-semibold mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pinkAccent"
-            />
-          </div>
-
+          <InputField
+            label="Email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
           {/* Phone */}
-          <div>
-            <label className="block text-sm font-semibold mb-1">Phone</label>
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pinkAccent"
-            />
-          </div>
-
+          <InputField
+            label="Phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+          />
           {/* Date of Birth */}
-          <div>
-            <label className="block text-sm font-semibold mb-1">Date of Birth</label>
-            <input
-              type="date"
-              name="dateOfBirth"
-              value={formData.dateOfBirth}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pinkAccent"
-            />
-          </div>
-
+          <InputField
+            label="Date of Birth"
+            name="dateOfBirth"
+            type="date"
+            value={formData.dateOfBirth}
+            onChange={handleChange}
+          />
           {/* Gender */}
-          <div>
-            <label className="block text-sm font-semibold mb-1">Gender</label>
-            <select
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pinkAccent"
-            >
-              <option>Female</option>
-              <option>Male</option>
-              <option>Non-binary</option>
-              <option>Prefer not to say</option>
-            </select>
-          </div>
-
+          <SelectField
+            label="Gender"
+            name="gender"
+            value={formData.gender}
+            options={[
+              "Female",
+              "Male",
+              "Non-binary",
+              "Prefer not to say",
+            ]}
+            onChange={handleChange}
+          />
           {/* Address */}
-          <div>
-            <label className="block text-sm font-semibold mb-1">Address</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pinkAccent"
-            />
-          </div>
-
+          <InputField
+            label="Address"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+          />
           {/* Health Issues */}
-          <div>
-            <label className="block text-sm font-semibold mb-1">Health Issues</label>
-            <input
-              type="text"
-              name="healthIssues"
-              value={formData.healthIssues}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pinkAccent"
-            />
-          </div>
-
+          <InputField
+            label="Health Issues"
+            name="healthIssues"
+            value={formData.healthIssues}
+            onChange={handleChange}
+          />
           {/* Meditation Goals */}
-          <div>
-            <label className="block text-sm font-semibold mb-1">Meditation Goals</label>
-            <input
-              type="text"
-              name="meditationGoals"
-              value={formData.meditationGoals}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pinkAccent"
-            />
-          </div>
-
+          <InputField
+            label="Meditation Goals"
+            name="meditationGoals"
+            value={formData.meditationGoals}
+            onChange={handleChange}
+          />
           {/* Experience Level */}
-          <div className="md:col-span-2">
-            <label className="block text-sm font-semibold mb-1">Experience Level</label>
-            <select
-              name="experienceLevel"
-              value={formData.experienceLevel}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pinkAccent"
-            >
-              <option>Beginner</option>
-              <option>Intermediate</option>
-              <option>Advanced</option>
-            </select>
-          </div>
+          <SelectField
+            label="Experience Level"
+            name="experienceLevel"
+            value={formData.experienceLevel}
+            options={["Beginner", "Intermediate", "Advanced"]}
+            onChange={handleChange}
+            className="md:col-span-2"
+          />
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex justify-end mt-8 gap-4">
+        {/* Buttons */}
+        <div className="flex justify-end gap-4 mt-10">
           <button
             type="button"
             onClick={handleCancel}
-            className="px-4 py-2 rounded-md border border-gray-400 text-gray-600 hover:bg-gray-100"
+            className="px-5 py-2 rounded-lg bg-white text-[#9743c8] font-semibold border border-[#9743c8] hover:bg-gray-100 transition"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 rounded-md bg-pinkAccent text-gray-600 border-gray-400 hover:bg-pink-500 border border-pinkAccent hover:text-white"
+            className="px-5 py-2 rounded-lg bg-[#9743c8] text-white font-semibold hover:bg-[#8433b5] transition"
           >
             Save Changes
           </button>
@@ -196,5 +156,38 @@ const PersonalInfoPage = () => {
     </div>
   );
 };
+
+// Reusable Input Field
+const InputField = ({ label, name, value, onChange, type = "text" }) => (
+  <div>
+    <label className="block text-white font-medium mb-1">{label}</label>
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      className="w-full px-4 py-2 rounded-md border border-white bg-white text-[#333] focus:outline-none focus:ring-2 focus:ring-[#9743c8] shadow-sm"
+    />
+  </div>
+);
+
+// Reusable Select Field
+const SelectField = ({ label, name, value, options, onChange, className = "" }) => (
+  <div className={className}>
+    <label className="block text-white font-medium mb-1">{label}</label>
+    <select
+      name={name}
+      value={value}
+      onChange={onChange}
+      className="w-full px-4 py-2 rounded-md border border-white bg-white text-[#333] focus:outline-none focus:ring-2 focus:ring-[#9743c8] shadow-sm"
+    >
+      {options.map((opt) => (
+        <option key={opt} value={opt}>
+          {opt}
+        </option>
+      ))}
+    </select>
+  </div>
+);
 
 export default PersonalInfoPage;
