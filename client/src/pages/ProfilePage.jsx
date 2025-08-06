@@ -37,7 +37,9 @@ const ProfilePage = () => {
     <div className="min-h-screen bg-white text-black px-4 sm:px-6 lg:px-20 py-10">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <h2 className="text-3xl font-bold mb-8 text-gray-800">Account Settings</h2>
+        <h2 className="text-3xl font-bold mb-8 text-gray-800">
+          Account Settings
+        </h2>
 
         {/* Profile Info */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10 bg-gradient-to-r from-[#f19ad2] to-[#ab4ee1] p-6 rounded-2xl shadow-md text-white">
@@ -48,7 +50,9 @@ const ProfilePage = () => {
               className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-4 border-white"
             />
             <div>
-              <h3 className="text-lg sm:text-xl font-semibold">{user.fullName}</h3>
+              <h3 className="text-lg sm:text-xl font-semibold">
+                {user.fullName}
+              </h3>
               <p className="text-sm sm:text-base break-all">{user.email}</p>
             </div>
           </div>
@@ -60,7 +64,7 @@ const ProfilePage = () => {
         </div>
 
         {/* Menu Items */}
-        <div className="space-y-4 m-10">
+        <div className="flex flex-col gap-4 my-10">
           {menuItems.map(({ icon, label, value, path }, i) => {
             const content = (
               <div className="flex items-center justify-between bg-[#f19ad2]/20 hover:bg-[#f19ad2]/40 rounded-2xl px-4 py-4 shadow transition-all">
@@ -91,7 +95,7 @@ const ProfilePage = () => {
 
         {/* My Records Section */}
         <h3 className="text-xl font-semibold mb-4 text-gray-800">My Records</h3>
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4 my-10">
           {recordItems.map(({ icon, label, path }, i) => {
             const content = (
               <div className="flex items-center justify-between bg-[#ab4ee1]/10 hover:bg-[#ab4ee1]/20 rounded-2xl px-4 py-4 shadow transition-all">
