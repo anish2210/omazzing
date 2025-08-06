@@ -21,7 +21,7 @@ function Login() {
     // Handle login logic here
     console.log("Login data:", formData);
     // After successful login, redirect to packages or dashboard
-    navigate("/packages");
+    navigate("/homepage");
   };
 
   return (
@@ -93,7 +93,7 @@ function Login() {
               ← Back to Home
             </button>
             <button
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/register")}
               className="text-deepPink hover:underline"
             >
               Don't have an account? Sign up
