@@ -12,16 +12,22 @@ const placeholder3 = "https://via.placeholder.com/160x100?text=Mindfulness";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-white pb-6">
+    <div className="min-h-screen bg-white pb-6 lg:pb-12 px-4 sm:px-6 lg:px-16">
       {/* Top Header */}
       <Header />
 
       {/* Hero Section */}
-      <HeroCard />
+      <div className="mt-6 lg:mt-10">
+        <HeroCard />
+      </div>
 
       {/* Categories Section */}
-      <SectionHeader title="Explore by Categories" />
-      <ScrollRow>
+      <SectionHeader
+        title="Explore by Categories"
+        className="mt-8 lg:mt-12 text-black"
+        // Use pinkAccent color for title if SectionHeader accepts className
+      />
+      <ScrollRow className="m-4 lg:p-6 overflow-x-auto">
         <CategoryCard title="Focus" count="32" img={placeholder1} />
         <CategoryCard title="Body Scan" count="18" img={placeholder2} />
         <CategoryCard title="Sleep" count="25" img={placeholder1} />
@@ -31,8 +37,11 @@ const Home = () => {
       </ScrollRow>
 
       {/* Recommended Section */}
-      <SectionHeader title="Recommended for You" />
-      <ScrollRow>
+      <SectionHeader
+        title="Recommended for You"
+        className="mt-10 lg:mt-14 text-black"
+      />
+      <ScrollRow className="mt-4 lg:mt-6 overflow-x-auto">
         <RecommendedCard
           title="Mindfulness"
           desc="Practice and develop mindfulness"
@@ -51,8 +60,8 @@ const Home = () => {
       </ScrollRow>
 
       {/* Trending Section */}
-      <SectionHeader title="Trending This Week" />
-      <ScrollRow>
+      <SectionHeader title="Trending This Week" className="mt-10 lg:mt-14" />
+      <ScrollRow className="mt-4 lg:mt-6 overflow-x-auto">
         <RecommendedCard
           title="Deep Sleep"
           desc="Sleep better with guided sessions"

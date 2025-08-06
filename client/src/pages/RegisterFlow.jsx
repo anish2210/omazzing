@@ -57,14 +57,14 @@ function RegisterFlow() {
               {["male", "female", "rather not to say"].map((opt) => (
                 <label
                   key={opt}
-                  className="flex items-center gap-3 p-3 rounded-lg border cursor-pointer hover:bg-gray-50"
+                  className="flex items-center gap-3 p-3 rounded-lg border cursor-pointer hover:bg-babyPink"
                 >
                   <input
                     type="radio"
                     value={opt}
                     checked={formData.gender === opt}
                     onChange={() => updateField("gender", opt)}
-                    className="text-deepPink"
+                    className="text-pinkAccent"
                   />
                   <span className="capitalize">I am {opt}</span>
                 </label>
@@ -80,7 +80,7 @@ function RegisterFlow() {
               <button
                 onClick={nextStep}
                 disabled={!formData.gender}
-                className="bg-deepPink text-white py-2 px-6 rounded-full disabled:opacity-50"
+                className="bg-pinkAccent text-white py-2 px-6 rounded-full disabled:opacity-50"
               >
                 Continue
               </button>
@@ -129,7 +129,7 @@ function RegisterFlow() {
               <button
                 onClick={nextStep}
                 disabled={!formData.ageRange}
-                className="bg-deepPink text-white py-2 px-6 rounded-full disabled:opacity-50"
+                className="bg-pinkAccent text-white py-2 px-6 rounded-full disabled:opacity-50"
               >
                 Continue
               </button>
@@ -156,13 +156,13 @@ function RegisterFlow() {
               {goals.map((goal) => (
                 <label
                   key={goal}
-                  className="flex items-center gap-3 p-3 rounded-lg border cursor-pointer hover:bg-gray-50"
+                  className="flex items-center gap-3 p-3 rounded-lg border cursor-pointer hover:bg-babyPink"
                 >
                   <input
                     type="checkbox"
                     checked={formData.goals.includes(goal)}
                     onChange={() => toggleGoal(goal)}
-                    className="text-deepPink"
+                    className="text-pinkAccent"
                   />
                   <span>{goal}</span>
                 </label>
@@ -178,7 +178,7 @@ function RegisterFlow() {
               <button
                 onClick={nextStep}
                 disabled={formData.goals.length === 0}
-                className="bg-deepPink text-white py-2 px-6 rounded-full disabled:opacity-50"
+                className="bg-pinkAccent text-white py-2 px-6 rounded-full disabled:opacity-50"
               >
                 Continue
               </button>
@@ -199,28 +199,28 @@ function RegisterFlow() {
                 placeholder="Full Name"
                 value={formData.fullName}
                 onChange={(e) => updateField("fullName", e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-deepPink"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pinkAccent"
               />
               <input
                 type="tel"
                 placeholder="Phone Number"
                 value={formData.phone}
                 onChange={(e) => updateField("phone", e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-deepPink"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pinkAccent"
               />
               <input
                 type="date"
                 placeholder="Date of Birth"
                 value={formData.dob}
                 onChange={(e) => updateField("dob", e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-deepPink"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pinkAccent"
               />
               <input
                 type="text"
                 placeholder="Country"
                 value={formData.country}
                 onChange={(e) => updateField("country", e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-deepPink"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pinkAccent"
               />
             </div>
             <div className="flex justify-between items-center pt-4">
@@ -238,7 +238,7 @@ function RegisterFlow() {
                   !formData.dob ||
                   !formData.country
                 }
-                className="bg-deepPink text-white py-2 px-6 rounded-full disabled:opacity-50"
+                className="bg-pinkAccent text-white py-2 px-6 rounded-full disabled:opacity-50"
               >
                 Continue
               </button>
@@ -258,28 +258,28 @@ function RegisterFlow() {
                 placeholder="Email"
                 value={formData.email}
                 onChange={(e) => updateField("email", e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-deepPink"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pinkAccent"
               />
               <input
                 type="password"
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => updateField("password", e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-deepPink"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pinkAccent"
               />
               <input
                 type="password"
                 placeholder="Confirm Password"
                 value={formData.confirmPassword}
                 onChange={(e) => updateField("confirmPassword", e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-deepPink"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pinkAccent"
               />
               <label className="flex items-center gap-2 text-sm text-gray-600">
                 <input
                   type="checkbox"
                   checked={formData.rememberMe}
                   onChange={(e) => updateField("rememberMe", e.target.checked)}
-                  className="text-deepPink"
+                  className="text-pinkAccent"
                 />
                 Remember me
               </label>
@@ -299,7 +299,7 @@ function RegisterFlow() {
                   !formData.confirmPassword ||
                   formData.password !== formData.confirmPassword
                 }
-                className="bg-deepPink text-white py-2 px-6 rounded-full disabled:opacity-50"
+                className="bg-pinkAccent text-white py-2 px-6 rounded-full disabled:opacity-50"
               >
                 Sign Up
               </button>
@@ -313,9 +313,19 @@ function RegisterFlow() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg min-h-[80vh] flex flex-col justify-center">
-        {renderStep()}
+    <div className="min-h-screen w-full flex bg-gray-50">
+      {/* Image side: visible only on large screens and above */}
+      <div className="hidden lg:block w-1/2 h-screen">
+        <img
+          src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80"
+          alt="Meditation"
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      {/* Form side */}
+      <div className="flex flex-col items-center justify-center w-full lg:w-1/2 p-8 lg:p-16 bg-white shadow-lg">
+        <div className="w-full max-w-md">{renderStep()}</div>
       </div>
     </div>
   );
