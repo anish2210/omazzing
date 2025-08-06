@@ -20,7 +20,7 @@ const RecommendedCard = ({ title, desc, img }) => {
     <div
       className="
         bg-babyPink hover:bg-pinkAccent/20
-        rounded-xl p-4 lg:p-6 lg:m-2
+        rounded-xl p-4 my-4 lg:p-6 lg:m-2
         flex items-center w-64 lg:w-72 flex-shrink-0
         mr-4 lg:mr-6 shadow-sm snap-start cursor-pointer
         transition-all duration-300

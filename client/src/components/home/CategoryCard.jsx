@@ -17,7 +17,7 @@ const CategoryCard = ({ title, count, img }) => {
   const imageUrl = IMAGE_MAP[title] || img;
   return (
     <div
-      className="bg-babyPink hover:bg-pinkAccent/10 rounded-xl 
+      className="bg-babyPink my-4 hover:bg-pinkAccent/10 rounded-xl 
       p-4 lg:p-2 lg:m-2 flex flex-col items-center 
       min-w-[144px] max-w-[144px] lg:min-w-[180px] lg:max-w-[180px]
       flex-shrink-0 shadow-sm snap-start transition-all duration-150

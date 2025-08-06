@@ -43,7 +43,7 @@ const ScrollRow = ({ children }) => {
   };
 
   return (
-    <div className="relative w-full py-5 my-6">
+    <div className="relative w-full py-2 ">
       {" "}
       {/* py-5 for vertical space */}
       {/* Scrollable content */}
