@@ -22,17 +22,20 @@ import PricingPage from "./pages/PricingPage";
 const Layout = ({ children }) => {
   const location = useLocation();
   // Paths where Navbar should NOT be shown
-  const hideNavbarPaths = ["/", "/signup", "/login"];
+  const hideNavbarPaths = ["/", "/register", "/login"];
 
   const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname);
 
   return (
     <div className="flex flex-col min-h-screen bg-babyPink text-black">
       {shouldShowNavbar && <Navbar />}
-      <main className="flex-1 p-4 pt-20">{children}</main>
+      <main className={`flex-1 ${shouldShowNavbar ? "pt-20" : ""}`}>
+        {children}
+      </main>
     </div>
   );
 };
+
 
 function App() {
   return (
