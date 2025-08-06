@@ -10,7 +10,7 @@ const courses = [
     duration: "8 hours",
     chapters: 12,
     progress: 0,
-    image: "./assets/images/img-1.jpg",
+    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1220&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg",
     locked: false,
   },
   {
@@ -20,7 +20,7 @@ const courses = [
     duration: "8 hours",
     chapters: 12,
     progress: 32,
-    image: "https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg",
+    image: "https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg",
     locked: false,
   },
   {
@@ -30,7 +30,7 @@ const courses = [
     duration: "8 hours",
     chapters: 12,
     progress: 0,
-    image: "https://images.pexels.com/photos/317157/pexels-photo-317157.jpeg",
+    image: "https://images.pexels.com/photos/1234035/pexels-photo-1234035.jpeg",
     locked: true,
   },
 ];
